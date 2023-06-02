@@ -5,7 +5,62 @@
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-    <body>
-    <!--Add a registration form here -->
-    </body>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">djangoapp</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+                 <a class="btn btn-link" href="#">({{ user.username }})</a>
+                 <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                 <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
+                 <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
+            {% else %}
+            <li>
+                 <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Username" name="username" >
+                         <input type="password" class="form-control" placeholder="Password" name="psw" >
+                         <button class="btn btn-primary" type="submit">Login</button>
+                         <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                         <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
+                    </div>
+                 </form>
+            </li>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <form action="{% url 'djangoapp:registration' %}" method="post">
+        <div class="container">
+            <div class="form-group">
+                <h1>Sign Up</h1>
+                <hr>
+                <label for="username"><b>User Name</b></label>
+                <input type="text" placeholder="Enter User Name: " name="username" class="form-control" required>
+                <label for="firstname"><b>Fist Name</b></label>
+                <input type="text" placeholder="Enter first name: " name="firstname" class="form-control" required>
+                <label for="lastname"><b>Last Name</b></label>
+                <input type="text" placeholder="Enter last name: " name="lastname" class="form-control" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password: " name="psw" class="form-control" required>
+            </div>
+            
+            <!-- HINT, added inputs for username, firstname, lastname, and password  -->
+            {% if message %}
+            <div class="alert"> <!--Stylize the message paragraph with .alert and .alert-warning class -->
+                {{ message }}
+            </div>
+            {% endif %}
+            {% csrf_token %}
+            <button class="btn and btn-primary" type="submit">Sign up</button> <!--Stylize button with .btn and .btn-primary class -->
+        </div>
+        
+    </form>
+</body>
 </html>

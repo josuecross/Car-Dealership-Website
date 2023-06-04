@@ -100,6 +100,7 @@ class DealerReview:
         # Dealer state
         self.car_year = car_year
 
+        self.sentiment = ""
 
     def __str__(self):
         return "Review: " + self.review

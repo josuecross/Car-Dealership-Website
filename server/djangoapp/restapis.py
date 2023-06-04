@@ -12,7 +12,16 @@ def get_request(url, **kwargs):
     print("GET from {} ".format(url))
     try:
         # Call get method of requests library with URL and parameters
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
+        if api_key:
+            params = dict()
+            params["text"] = kwargs["text"]
+            params["version"] = kwargs["version"]
+            params["features"] = kwargs["features"]
+            params["return_analyzed_text"] = kwargs["return_analyzed_text"]
+            response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
+                                                auth=HTTPBasicAuth('apikey', api_key))
+        else:
+            response = requests.get(url, headers={'Content-Type': 'application/json'},
                                     params=kwargs)
     except:
         # If any error occurs
@@ -67,12 +76,34 @@ def get_dealer_reviews_from_cf(url, dealerId):
                                    review=review_doc["review"], purchase_date=review_doc["purchase_date"], car_make=review_doc["car_make"],
                                    car_model=review_doc["car_model"],
                                    car_year=review_doc["car_year"])
+            ...
+            review_obj.sentiment = analyze_review_sentiments(review_obj.review)
             results.append(review_obj)
 
     return results
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
-# def analyze_review_sentiments(text):
+def analyze_review_sentiments(text):
+    results = []
+    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/d1647f6e-a843-43ca-a74b-ca82f9aef2e9"
+    api_key = "O79rxo57Sc7bE-2WjxHoIV0LwOLOP9eY78EAnStDCi-n"
+    features = {
+        'sentiment': {
+            'targets': [
+                'France'
+            ]
+        }
+    }
+
+    # Call get_request with a URL parameter
+    json_result = get_request(url, api_key=api_key, text=text, version='2022-04-07', features=features)
+    return json_result["sentiment"]["targets"][0]["label"]
+
+    
+    
+    # Call get_request with a URL parameter
+    
+    
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
 

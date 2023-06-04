@@ -101,7 +101,7 @@ def get_dealer_details(request, dealer_id):
         # Get dealers from the URL
         reviews = get_dealer_reviews_from_cf(url, dealer_id)
         # Concat all dealer's short name
-        dealer_reviews = ' '.join([dealer.review for dealer in reviews])
+        dealer_reviews = ' '.join([(dealer.review+" "+dealer.sentiment) for dealer in reviews])
         # Return a list of dealer short name
         return HttpResponse(dealer_reviews)
 

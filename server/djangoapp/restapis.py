@@ -10,19 +10,21 @@ from requests.auth import HTTPBasicAuth
 def get_request(url, **kwargs):
     print(kwargs)
     print("GET from {} ".format(url))
+    response = []
     try:
         # Call get method of requests library with URL and parameters
-        if api_key:
+        if "api_key" in kwargs:
             params = dict()
             params["text"] = kwargs["text"]
             params["version"] = kwargs["version"]
             params["features"] = kwargs["features"]
-            params["return_analyzed_text"] = kwargs["return_analyzed_text"]
-            response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
-                                                auth=HTTPBasicAuth('apikey', api_key))
+            #params["return_analyzed_text"] = kwargs["return_analyzed_text"]
+        
+            response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},auth=HTTPBasicAuth('apikey', kwargs["api_key"]))
         else:
-            response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
+            response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
+
+            
     except:
         # If any error occurs
         print("Network exception occurred")
@@ -88,11 +90,7 @@ def analyze_review_sentiments(text):
     url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/d1647f6e-a843-43ca-a74b-ca82f9aef2e9"
     api_key = "O79rxo57Sc7bE-2WjxHoIV0LwOLOP9eY78EAnStDCi-n"
     features = {
-        'sentiment': {
-            'targets': [
-                'France'
-            ]
-        }
+        'sentiment': {}
     }
 
     # Call get_request with a URL parameter

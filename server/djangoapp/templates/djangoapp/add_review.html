@@ -10,7 +10,86 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
 </head>
-    <body>
-    <!--Add review form here -->
-    </body>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">djangoapp</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+                 <a class="btn btn-link" href="#">({{ user.username }})</a>
+                 <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                 <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
+                 <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
+            {% else %}
+            <li>
+                 <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                         <input type="text" class="form-control" placeholder="Username" name="username" >
+                         <input type="password" class="form-control" placeholder="Password" name="psw" >
+                         <button class="btn btn-primary" type="submit">Login</button>
+                         <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                         <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
+                    </div>
+                 </form>
+            </li>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+<!--Add review form here -->
+
+<!-- Page content -->
+<div class="container-fluid">
+    
+    {% if user.is_authenticated %}
+
+    <form id="questionform" action="{% url 'djangoapp:add_review' dealer_id=dealer_id%}" method="post">
+        <H2>Add a review about {{dealer_name}}</H2>
+        <div class="card mt-1">
+            <div class="card-header"><h5> Enter the review content</h5></div>
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea class="form-control" id="content" name="content" rows="2" required></textarea>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="purchasecheck" id="purchasecheck">
+                        <h5>Has purchased the car from {{dealer_name}} (select purchased car information below if checked)</h5> 
+                    </label>
+                </div>
+                <div>
+                    <h6>Select your car model(model-make-yer) </h6>
+                    <select name="car" id="car" class="form-select" required> 
+                        {% for car in cars_list %}
+                            <option selected value={{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}</option>
+                        {% endfor %}              
+                    </select>
+                </div>
+                
+               <input class="date-own form-control" type="text" name="purchasedate" id="purchasedate">
+
+            </div>
+        </div>
+        <input class="btn btn-success btn-block" type="submit" value="Submit">
+    </form> 
+
+    {% endif %}
+
+    </div>  
+
+
+
+    
+</div>
+</body>
+<script type="text/javascript">
+    $('.date-own').datepicker({
+       format: 'mm/dd/yyyy'
+     });
+</script>
 </html>

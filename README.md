@@ -5,13 +5,6 @@ You are a new hire at the company. You are assigned the task of building a websi
 
 After thorough research and brainstorming, the team developed use cases for anonymous, authorized, and admin users.
 
-# Final Project Template
-
-The final project for this course has several steps that you must complete. 
-To give you an overview of the whole project, all the high-level steps are listed below. 
-The project is then divided into several smaller labs that give the detailed instructions for each step. 
-You must complete all the labs to successfully complete the project.
-
 ## Project Breakdown
 
 **Prework: Sign up for IBM Cloud account and create a Watson Natural language Understanding service**

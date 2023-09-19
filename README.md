@@ -5,7 +5,7 @@ You are a new hire at the company. You are assigned the task of building a websi
 
 After thorough research and brainstorming, the team developed use cases for anonymous, authorized, and admin users.
 
-## Use cases for anonymous users:
+### Use cases for anonymous users:
 
 * View the "Contact Us" page.
 
@@ -19,7 +19,7 @@ After thorough research and brainstorming, the team developed use cases for anon
 
 * Log in using their credentials.
 
-## Use cases for authorized users: 
+### Use cases for authorized users: 
 In addition to the above, authorized users should be able to write a review for any dealership on the dealership's page. In order to enable authorized users to write their reviews:
 
 * A Review button should be provided against each dealer listed in the dealership table.
@@ -35,7 +35,7 @@ In addition to the above, authorized users should be able to write a review for 
 
 On submission, user should be taken back to the dealership detail page with the submitted review featured at the top of the reviews list, sorted on time.
 
-## Use cases for admin users:
+### Use cases for admin users:
 
 * Log in to the admin site with a predefined username and password.
 

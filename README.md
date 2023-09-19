@@ -1,3 +1,10 @@
+# Problem
+A national car dealership with local branches spread across the United States recently conducted a market survey. One of the suggestions that emerged from the survey was that customers would find it beneficial if they could access a central database of dealership reviews across the country.
+
+You are a new hire at the company. You are assigned the task of building a website that allows new and existing customers to look up different branches by state and look at customer reviews of the various branches. Customers should be able to create an account and add their review for any of the branches. The management hopes this will bring transparency to the system and also increase the trust customers have in the dealership.
+
+After thorough research and brainstorming, the team developed use cases for anonymous, authorized, and admin users.
+
 # Final Project Template
 
 The final project for this course has several steps that you must complete. 
@@ -34,3 +41,15 @@ You must complete all the labs to successfully complete the project.
 **Containerize your application**
 1. Add deployment artifacts to your application
 2. Deploy your application
+
+# Solution architecture
+The solution will consist of multiple technologies
+
+* The user interacts with the Django application through a web browser.
+* The Django application handles the user authentication using the SQLite database as the persistance layer.
+* The SQLite database also stores the Car Make and the Car Model data.
+* The dealerships and the reviews are stored in Cloudant, a NoSQL document based database.
+* IBM Cloud functions are used to interface with the Cloudant database to get dealerships, get reviews and post reviews.
+* The Django application talks to the IBM Cloud Functions via a set or proxy services.
+
+![image](https://github.com/josuecross/Car-Dealership-Website/assets/85675115/0cec6a93-abf1-416e-b282-5ec404de1f25)

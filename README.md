@@ -41,6 +41,35 @@ On submission, user should be taken back to the dealership detail page with the 
 
 * Add new make, model, and other attributes.
 
+## Setting up
+
+Cloning the repository
+```
+git clone https://github.com/josuecross/Car-Dealership-Website
+```
+
+Go to server
+```
+cd Car-Dealership-Website/server
+```
+
+Install dependencies:
+```
+python3 -m pip install -U -r requirements.txt
+```
+
+Activate models for the app:
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+
+To run the server:
+```
+python3 manage.py runserver
+```
+
+
 ## Project Breakdown
 
 **Prework: Sign up for IBM Cloud account and create a Watson Natural language Understanding service**
